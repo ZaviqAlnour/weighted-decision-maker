@@ -1,8 +1,10 @@
 def main():
+    data = {} 
+
     decision, option_count, criteria_count = firstAsk()
     options = askOption(option_count)
     criterias = askCriteria(criteria_count)
-    collect_criteria_points(options, criterias)
+    collect_criteria_points(options, criterias, data)
     
 
 def firstAsk():
@@ -12,7 +14,6 @@ def firstAsk():
     print()
 
     return decision, option_count, criteria_count
-
 
 def askOption(option_count):
     options = []
@@ -28,11 +29,10 @@ def askCriteria(criteria):
     print()
     return criterias    
 
-def collect_criteria_points(options, criteria):
-    criteria_point = []
-    op_index = 0
+def collect_criteria_points(options, criteria, data):
     for op in options:
-        print(f"\n------ point for {options[op_index]} --------\n")
+        print(f"\n------ point for {op} --------\n")
+        data[op] = {}
 
         for cr in criteria:
             while True:
@@ -46,9 +46,6 @@ def collect_criteria_points(options, criteria):
                 except ValueError:
                     print("This is not valid you have to give a number.")
                     continue 
-        op_index += 1       
-
-    criteria_point.append(op_point)
-
+            data[op][cr] = op_point
 
 main()
