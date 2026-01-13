@@ -81,17 +81,23 @@ def main():
     best_option = max(option_net_point, key=option_net_point.get)
     best_value = option_net_point[best_option]
 
-    print("______________________________________________________")
+
+    for choice, dict_point in data_point.items():
+        print("\nBreakdown:\n")
+        print(f"{choice}:")
+        total = 0
+        for opt, point in dict_point.items():
+            weight = criterias[opt]
+            score = point
+            total += score
+            print(f"{opt}: {score // weight} × {weight} = {score}")
+        print("-" * 24)
+        print(f"Total = {sum(dict_point.values())}")
+
+        print("______________________________________________________")
     print(f"\nDecission: {decision}\n")
     print("Result:")
     print(f"Best option: {best_option}")
     print(f"Total Score: {best_value}")
-
-
-    # for choice, dict_point in data_point.items():
-    #     print("Breakdown: \n")
-    #     print(choice)
-    #     for opt, point in dict_point.items():
-    #         print(f"{opt} ----->>>---->>> {} ")
 
 main()
