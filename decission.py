@@ -23,10 +23,24 @@ def askOption(option_count):
     return options    
    
 def askCriteria(criteria):
-    criterias = []
+    criterias = {}
+
     for i in range(criteria):
-        criterias.append(input(f"Enter criteria {i + 1}: "))
-    print()
+        crt = (input(f"Enter criteria {i + 1}: "))
+        criterias[crt] = {}
+        while True:
+                try:
+                    Weight = int(input("Weight (1–10): "))
+                    if Weight < 0 or Weight > 10:
+                        print("You have enter point between (0 - 10).")
+                        continue
+                    else:
+                        break
+                except ValueError:
+                    print("This is not valid you have to give a number.")
+                    continue 
+        criterias[crt] = Weight
+    print(criterias)
     return criterias    
 
 def collect_criteria_points(options, criteria, data):
