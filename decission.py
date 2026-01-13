@@ -1,7 +1,8 @@
 def main():
     decision, option_count, criteria_count = firstAsk()
-    askOption(option_count)
+    options = askOption(option_count)
     askCriteria(criteria_count)
+    collect_options_points(options)
     
 
 def firstAsk():
@@ -27,7 +28,21 @@ def askCriteria(criteria):
 
     return criterias    
 
-
+def collect_options_points(options):
+    options_point = []
+    for op in options:
+        while True:
+            try:
+                op_point = int(input(f"Enter point (0 - 10) for {op}: "))
+                if op_point < 0 or op_point > 10:
+                    print("You have enter point between (0 - 10).")
+                    continue
+                else:
+                    break
+            except ValueError:
+                print("This is not valid you have to give a number.")
+                continue    
+    options_point.append(op_point)
 
 
 main()
