@@ -1,12 +1,3 @@
-def main():
-    data = {} 
-
-    decision, option_count, criteria_count = firstAsk()
-    options = askOption(option_count)
-    criterias = askCriteria(criteria_count)
-    collect_criteria_points(options, criterias, data)
-    
-
 def firstAsk():
     decision = input("Write the Decision Name: ")
     option_count = int(input("How many options do you have?: "))
@@ -61,5 +52,46 @@ def collect_criteria_points(options, criteria, data):
                     print("This is not valid you have to give a number.")
                     continue 
             data[op][cr] = op_point
+
+def decisionMAKING(data, criterias):
+    data_point = {}
+    options_net_point = {}
+
+    for option, criteria_dict in data.items():
+        data_point[option] = {}
+        for cr, point in criteria_dict.items():
+            weight = criterias[cr]
+            data_point[option][cr] = weight * point
+
+    for option, dict_point in data_point.items():
+        options_net_point[option] = sum(dict_point.values())
+
+    return data_point, options_net_point
+
+
+def main():
+    data = {} 
+
+    decision, option_count, criteria_count = firstAsk()
+    options = askOption(option_count)
+    criterias = askCriteria(criteria_count)
+    collect_criteria_points(options, criterias, data)
+    data_point, option_net_point = decisionMAKING(data, criterias)
+
+    best_option = max(option_net_point, key=option_net_point.get)
+    best_value = option_net_point[best_option]
+
+    print("______________________________________________________")
+    print(f"\nDecission: {decision}\n")
+    print("Result:")
+    print(f"Best option: {best_option}")
+    print(f"Total Score: {best_value}")
+
+
+    # for choice, dict_point in data_point.items():
+    #     print("Breakdown: \n")
+    #     print(choice)
+    #     for opt, point in dict_point.items():
+    #         print(f"{opt} ----->>>---->>> {} ")
 
 main()
